@@ -1,0 +1,48 @@
+plugins {
+    id 'application'
+    id 'org.graalvm.buildtools.native' version '0.9.22'
+}
+
+group = 'voidpointer.daemon'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.slf4j:slf4j-api:2.0.7'                  /* logging api */
+    implementation 'ch.qos.logback:logback-classic:1.4.7'       /* logging implementation */
+    implementation 'org.telegram:telegrambots:6.5.0'            /* Telegram Bot API */
+    implementation 'org.spongepowered:configurate-hocon:4.1.2'  /* configuration */
+
+    /* @NotNull, @Getter etc. */
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+    compileOnly 'org.jetbrains:annotations:24.0.1'
+
+    /* Fuck JUnit */
+    testImplementation 'org.testng:testng:7.8.0'
+    test.useTestNG()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+graalvmNative {
+    binaries {
+        main {
+            javaLauncher = javaToolchains.launcherFor {
+                languageVersion = JavaLanguageVersion.of(17)
+            }
+        }
+    }
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'voidpointer.daemon.sshnotify.Main'
+}
