@@ -11,7 +11,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.slf4j:slf4j-api:2.0.7'                  /* logging api */
     implementation 'ch.qos.logback:logback-classic:1.4.7'       /* logging implementation */
     implementation 'org.telegram:telegrambots:6.5.0'            /* Telegram Bot API */
     implementation 'org.spongepowered:configurate-hocon:4.1.2'  /* configuration */
