@@ -53,6 +53,10 @@ public final class ConnectionDescription {
     private final @NotNull String hostIp;
     private final @Nullable String customMessage;
 
+    public String userIp() {
+        return userIp;
+    }
+
     public String toMessageText() {
         return MessageFormat.format(MESSAGE_FORMAT, username, userIp, hostname, hostIp,
                 customMessage != null ? "\n" + customMessage : "");
