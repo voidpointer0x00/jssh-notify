@@ -1,6 +1,5 @@
 plugins {
     id 'application'
-    id 'org.graalvm.buildtools.native' version '0.9.22'
 }
 
 group = 'voidpointer.daemon'
@@ -28,16 +27,6 @@ dependencies {
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-
-graalvmNative {
-    binaries {
-        main {
-            javaLauncher = javaToolchains.launcherFor {
-                languageVersion = JavaLanguageVersion.of(17)
-            }
-        }
     }
 }
 
