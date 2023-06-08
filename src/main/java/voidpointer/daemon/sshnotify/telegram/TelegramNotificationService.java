@@ -32,19 +32,13 @@ public final class TelegramNotificationService {
         ignoreButton.setCallbackData("ignore:" + connectionDescription.userIp());
         var killButton = new InlineKeyboardButton("Ban IP");
         killButton.setCallbackData("ban:" + connectionDescription.userIp());
-        var sendMessage = SendMessage.builder()
+        bot.sendMessage(SendMessage.builder()
                 .chatId(355420409L) /* TODO fetch from db/config */
                 .text(connectionDescription.toMessageText())
                 .parseMode("Markdown")
                 .replyMarkup(InlineKeyboardMarkup.builder()
                         .keyboard(List.of(List.of(ignoreButton, killButton)))
                         .build())
-                .build();
-        try {
-            bot.execute(sendMessage);
-        } catch (final TelegramApiException telegramApiException) {
-            log.error("Could not execute SendMessage: {}", telegramApiException.getMessage());
-            log.atDebug().setCause(telegramApiException).log("Exception on SendMessage {}", sendMessage);
-        }
+                .build());
     }
 }

@@ -2,6 +2,8 @@ package voidpointer.daemon.sshnotify.telegram.callback;
 
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import voidpointer.daemon.sshnotify.config.BanConfig;
+import voidpointer.daemon.sshnotify.telegram.SshNotifyVoidBot;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,10 +12,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class CallbackHandlerManager {
     private final Map<String, CallbackHandler> handlers;
 
-    public CallbackHandlerManager() {
+    public CallbackHandlerManager(final SshNotifyVoidBot bot, final BanConfig banConfig) {
         handlers = new ConcurrentHashMap<>(2);
         registerCallbackHandler(new IgnoreCallbackHandler());
-        registerCallbackHandler(new BanCallbackHandler());
+        registerCallbackHandler(new BanCallbackHandler(bot, banConfig));
     }
 
     public void registerCallbackHandler(final CallbackHandler callbackHandler) {

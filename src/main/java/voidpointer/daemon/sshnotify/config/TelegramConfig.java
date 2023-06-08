@@ -1,6 +1,8 @@
 package voidpointer.daemon.sshnotify.config;
 
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
+import org.spongepowered.configurate.objectmapping.meta.Comment;
+import org.spongepowered.configurate.objectmapping.meta.Setting;
 
 import java.nio.file.Path;
 
@@ -10,8 +12,12 @@ public final class TelegramConfig {
         return HoconConfigLoader.loadAndSave(src, TelegramConfig.class, TelegramConfig::new);
     }
 
-    private String token;
-    private String botUsername;
+    @Comment("Telegram bot token from @BotFather")
+    private String token = "1000000000:ABCDEFGHIJKLMNOPqrstuvwxyz-12345678";
+    @Comment("The exact @username_bot of your bot")
+    private String botUsername = "SshNotifyVoidBot";
+    @Setting("ban")
+    private BanConfig banConfig = new BanConfig();
 
     public TelegramConfig() {
         this.token = "";
@@ -24,5 +30,9 @@ public final class TelegramConfig {
 
     public String botUsername() {
         return botUsername;
+    }
+
+    public BanConfig banConfig() {
+        return banConfig;
     }
 }
