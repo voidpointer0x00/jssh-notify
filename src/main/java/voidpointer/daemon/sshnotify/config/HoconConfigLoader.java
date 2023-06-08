@@ -1,6 +1,7 @@
 package voidpointer.daemon.sshnotify.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;
 import org.spongepowered.configurate.hocon.HoconConfigurationLoader;
@@ -11,7 +12,7 @@ import java.util.function.Supplier;
 
 @Slf4j
 final class HoconConfigLoader {
-    static <T> T loadAndSave(final Path src, final Class<T> type, final Supplier<T> defaultSupplier) {
+    static <T> @NotNull T loadAndSave(final Path src, final Class<T> type, final Supplier<T> defaultSupplier) {
         var loader = HoconConfigurationLoader.builder().path(src).build();
         CommentedConfigurationNode root;
         try {
