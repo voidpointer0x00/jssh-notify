@@ -12,7 +12,7 @@ public class ExceptionOr<ResultT> {
         return new ExceptionOr<>(exception, null);
     }
 
-    public static <T> ExceptionOr<T> result(final T result) {
+    public static <T> ExceptionOr<T> get(final T result) {
         return new ExceptionOr<>(null, result);
     }
 
@@ -25,4 +25,10 @@ public class ExceptionOr<ResultT> {
         else
             orElse.accept(result);
     }
+
+    public boolean hasException() { return exception != null; }
+
+    public Exception exception() { return exception; }
+
+    public ResultT get() { return result; }
 }

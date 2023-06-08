@@ -6,16 +6,17 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import voidpointer.daemon.sshnotify.config.TelegramConfig;
+import voidpointer.daemon.sshnotify.data.UserRepository;
 
 @Slf4j
 public final class SshNotifyVoidBot extends TelegramLongPollingBot {
     private final TelegramConfig config;
     private final ChatUpdateListener chatUpdateListener;
 
-    SshNotifyVoidBot(final TelegramConfig config) {
+    SshNotifyVoidBot(final TelegramConfig config, final UserRepository userRepository) {
         super(config.token());
         this.config = config;
-        chatUpdateListener = new ChatUpdateListener(this, config.banConfig());
+        chatUpdateListener = new ChatUpdateListener(userRepository, this, config.banConfig());
     }
 
     @Override public void onUpdateReceived(final Update update) {

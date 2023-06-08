@@ -8,7 +8,7 @@ import java.nio.file.Path;
 
 @ConfigSerializable
 public final class DatabaseCredentialsConfig {
-    public static DatabaseCredentialsConfig load(final Path path) {
+    public static DatabaseCredentialsConfig loadAndSave(final Path path) {
         return HoconConfigLoader.loadAndSave(path, DatabaseCredentialsConfig.class, DatabaseCredentialsConfig::new);
     }
 
@@ -17,7 +17,7 @@ public final class DatabaseCredentialsConfig {
             implements DatabaseCredentials {}
 
     @Setting
-    private CredentialsConfig credentials = new CredentialsConfig("localhost", 6379, "user", "password");
+    private CredentialsConfig credentials = new CredentialsConfig("localhost", 6379, null, null);
 
     public DatabaseCredentials credentials() {
         return credentials;
