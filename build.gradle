@@ -15,6 +15,8 @@ dependencies {
     implementation 'org.telegram:telegrambots:6.5.0'            /* Telegram Bot API */
     implementation 'org.spongepowered:configurate-hocon:4.1.2'  /* configuration */
 
+    implementation 'redis.clients:jedis:4.3.1' /* Redis storage for ignored IPs */
+
     /* @NotNull, @Getter etc. */
     compileOnly 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
