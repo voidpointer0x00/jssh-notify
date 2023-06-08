@@ -25,10 +25,13 @@ public final class TelegramNotificationService {
 
     public void notifyConnected(final ConnectionDescription connectionDescription) {
         log.debug("SSH connection: {}", connectionDescription.brief());
+        /* FIXME protection: got to create a queue for actions, so that
+         *  a malicious user could not send their own message with custom data
+         * TODO protection: try and exploit the described above vulnerability */
         var ignoreButton = new InlineKeyboardButton("Ignore");
         ignoreButton.setCallbackData("ignore:" + connectionDescription.userIp());
-        var killButton = new InlineKeyboardButton("Kill");
-        killButton.setCallbackData("kill:");
+        var killButton = new InlineKeyboardButton("Ban IP");
+        killButton.setCallbackData("ban:" + connectionDescription.userIp());
         var sendMessage = SendMessage.builder()
                 .chatId(355420409L) /* TODO fetch from db/config */
                 .text(connectionDescription.toMessageText())
