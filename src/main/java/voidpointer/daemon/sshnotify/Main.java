@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import voidpointer.daemon.sshnotify.config.TelegramConfig;
 import voidpointer.daemon.sshnotify.server.DaemonServer;
-import voidpointer.daemon.sshnotify.telegram.TelegramService;
+import voidpointer.daemon.sshnotify.telegram.TelegramNotificationService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,9 +20,9 @@ public class Main {
         final Path telegramConfigPath = CONFIG_FOLDER_PATH.resolve("telegram_bot.conf");
         var telegramConfig = TelegramConfig.loadAndSave(telegramConfigPath);
         updateConfigDirPermissions();
-        TelegramService telegramWorker;
+        TelegramNotificationService telegramWorker;
         try {
-            telegramWorker = new TelegramService(telegramConfig);
+            telegramWorker = new TelegramNotificationService(telegramConfig);
         } catch (final TelegramApiException telegramApiException) {
             log.error("Could not start telegram bot: {}", telegramApiException.getMessage());
             return;

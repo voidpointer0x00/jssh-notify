@@ -13,11 +13,11 @@ import voidpointer.daemon.sshnotify.connection.ConnectionDescription;
 import java.util.List;
 
 @Slf4j
-public final class TelegramService {
+public final class TelegramNotificationService {
     private final TelegramBotsApi api;
     private final SshNotifyVoidBot bot;
 
-    public TelegramService(final TelegramConfig config) throws TelegramApiException {
+    public TelegramNotificationService(final TelegramConfig config) throws TelegramApiException {
         bot = new SshNotifyVoidBot(config);
         api = new TelegramBotsApi(DefaultBotSession.class);
         api.registerBot(bot);
