@@ -12,11 +12,12 @@ public final class DatabaseCredentialsConfig {
         return HoconConfigLoader.loadAndSave(path, DatabaseCredentialsConfig.class, DatabaseCredentialsConfig::new);
     }
 
+    @ConfigSerializable
     private record CredentialsConfig(String url, int port, String username, String password)
             implements DatabaseCredentials {}
 
     @Setting
-    private DatabaseCredentials credentials = new CredentialsConfig("localhost", 6379, "user", "password");
+    private CredentialsConfig credentials = new CredentialsConfig("localhost", 6379, "user", "password");
 
     public DatabaseCredentials credentials() {
         return credentials;
