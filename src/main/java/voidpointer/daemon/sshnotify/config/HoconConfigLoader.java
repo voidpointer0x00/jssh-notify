@@ -17,15 +17,16 @@ final class HoconConfigLoader {
         CommentedConfigurationNode root;
         try {
             root = loader.load();
+            log.trace("Loaded {}", src);
         } catch (final ConfigurateException ex) {
-            log.atWarn().setCause(ex).log("Could not parse {}: {}", type, ex.getMessage());
+            log.warn("Could not parse {}: {}", type.getName(), ex.getMessage());
             return defaultSupplier.get();
         }
         T config;
         try {
             config = root.get(type);
         } catch (final SerializationException ex) {
-            log.atError().setCause(ex).log("Could not deserialize {}: {}", type, ex.getMessage());
+            log.warn("Could not deserialize {}: {}", type.getName(), ex.getMessage());
             return defaultSupplier.get();
         }
         if (config == null)
@@ -33,13 +34,14 @@ final class HoconConfigLoader {
         try {
             root.set(config);
         } catch (final SerializationException ex) {
-            log.atError().setCause(ex).log("Could not serialize {}: {}", type, ex.getMessage());
+            log.warn("Could not serialize {}: {}", type.getName(), ex.getMessage());
             return config;
         }
         try {
             loader.save(root);
+            log.trace("Saved {}", src);
         } catch (final ConfigurateException ex) {
-            log.atWarn().setCause(ex).log("Could not save {}: {}", type, ex.getMessage());
+            log.warn("Could not save {}: {}", type.getName(), ex.getMessage());
         }
         return config;
     }
