@@ -7,7 +7,7 @@ import java.nio.file.Path;
 @ConfigSerializable
 public final class TelegramConfig {
     public static TelegramConfig loadAndSave(final Path src) {
-        return voidpointer.daemon.sshnotify.config.HoconConfigLoader.loadAndSave(src, TelegramConfig.class, TelegramConfig::new);
+        return HoconConfigLoader.loadAndSave(src, TelegramConfig.class, TelegramConfig::new);
     }
 
     private String token;
